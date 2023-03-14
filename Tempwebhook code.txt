@@ -1,0 +1,21 @@
+#include <Grove_Temperature_And_Humidity_Sensor.h>
+#define DHTPIN  D2
+int led = D7;  // The on-board LED
+DHT dht(DHTPIN);
+void setup() {
+  pinMode(led, OUTPUT);
+  
+  Serial.begin(9600);
+    Serial.println("DHT11 Begin!!!");
+    dht.begin();
+}
+void loop() {
+  digitalWrite(led, HIGH);   // Turn ON the LED
+  float t = dht.getTempCelcius();
+  String temp = String(t);
+  Particle.publish("temp", temp, PRIVATE);
+  delay(15000);               // Wait for 30 seconds
+  digitalWrite(led, LOW);    // Turn OFF the LED
+  delay(15000);               // Wait for 30 seconds
+}
+Ready.Last Event: temp = 27.000000 beebeebooboo  v4.0.2 
